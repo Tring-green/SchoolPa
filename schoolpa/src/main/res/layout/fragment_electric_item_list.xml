@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/fragment_electric"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_electric"
+        android:name="com.example.schoolpa.Fragment.ElectricFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="visible"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.example.schoolpa.Fragment.ElectricFragment"
+        tools:listitem="@layout/fragment_electric_item"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_input_electric"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:visibility="invisible"
+        >
+
+        <TextView
+            android:id="@+id/tv_input_electric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/et_input_electric"
+            android:layout_centerHorizontal="true"
+            android:text="请输入房间号进行绑定"
+            android:textSize="22sp"
+            />
+
+        <EditText
+            android:id="@+id/et_input_electric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:hint="请输入房间号"
+            android:inputType="number"
+            android:minWidth="200sp"
+            android:textSize="22sp"
+            />
+
+        <Button
+            android:id="@+id/bt_bind_electric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_input_electric"
+            android:layout_centerHorizontal="true"
+            android:text="绑定"
+            android:textSize="18sp"
+            />
+
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_center_electric"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_electricdetails"
+        android:name="com.example.schoolpa.Fragment.ElectricFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.example.schoolpa.Fragment.ElectricFragment"
+        tools:listitem="@layout/fragment_electric_item"
+        />
+</FrameLayout>
