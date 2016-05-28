@@ -28,7 +28,7 @@ public class StringUtils {
     }
 
     public static boolean isEffective(String str) {
-        if (str.equals("") || str.equals("Nothing!") || str == null)
+        if (str == null || str.equals("") || str.equals("Nothing!"))
             return false;
         return true;
     }

@@ -53,6 +53,7 @@ public class SPChatManager {
             public void onSuccess(HttpURLConnection conn) {
                 try {
                     String string = StreamUtils.getString(conn.getInputStream());
+                    System.out.println(string);
                     JsonParser parser = new JsonParser();
                     JsonElement element = parser.parse(string);
                     JsonObject root = element.getAsJsonObject();
