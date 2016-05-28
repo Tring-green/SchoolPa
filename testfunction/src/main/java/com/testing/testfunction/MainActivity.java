@@ -21,7 +21,7 @@ import com.testing.testfunction.Lib.SPError;
 import com.testing.testfunction.Service.BackgroundService;
 import com.testing.testfunction.Utils.CommonUtil;
 import com.testing.testfunction.Utils.DirUtil;
-import com.testing.testfunction.Utils.SPHttpClass;
+import com.testing.testfunction.Lib.SPHttpClient;
 import com.testing.testfunction.Utils.SerializableUtil;
 import com.testing.testfunction.Utils.ThreadUtils;
 import com.testing.testfunction.Utils.ToastUtils;
@@ -36,11 +36,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String mUserId = "122";
-    private String mPasswd = "123";
+    private String mUserId;
+    private String mPasswd;
     private EditText mEt_userId;
     private EditText mEt_passwd;
-    private SPHttpClass mHttpClass;
+    private SPHttpClient mHttpClass;
     private EditText mEt_name;
     private EditText mEt_content;
     private Socket mClient;
@@ -100,10 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mHttpClass != null) {
-            mHttpClass.disconnect();
-            mHttpClass = null;
-        }
+        mHttpClass.disconnect();
     }
 
     private void initView() {
@@ -226,42 +223,41 @@ public class MainActivity extends AppCompatActivity {
         parameter.put("userId", mUserId);
         parameter.put("passwd", mPasswd);
 
-        mHttpClass = SPChatManager.getInstance(this).sendRequest(url, parameter, new
-                ObjectCallback<Account>() {
-                    @Override
-                    public void onSuccess(Account data) {
-                        Log.d("onSuccess", data.toString());
-                        AccountDao dao = new AccountDao(MainActivity.this);
-                        data.transcoding();
-                        data.setCurrent(true);
-                        Account localAccount = dao.getByAccount(data.getUserId());
-                        if (localAccount != null) {
-                            dao.updateAccount(data);
-                        } else {
-                            dao.addAccount(data);
-                        }
-                    }
+        mHttpClass = SPChatManager.getInstance(this).sendRequest(url, null, parameter, new ObjectCallback<Account>() {
+            @Override
+            public void onSuccess(Account data) {
+                Log.d("onSuccess", data.toString());
+                AccountDao dao = new AccountDao(MainActivity.this);
+                data.transcoding();
+                data.setCurrent(true);
+                Account localAccount = dao.getByAccount(data.getUserId());
+                if (localAccount != null) {
+                    dao.updateAccount(data);
+                } else {
+                    dao.addAccount(data);
+                }
+            }
 
-                    @Override
-                    public void onFailure(int errorCode, String errorMessage) {
-                        switch (errorCode) {
-                            case SPError.ERROR_CLIENT_NET:
-                                Log.d(TAG, "客户端网络异常");
-                                ToastUtils.showTestShort(MainActivity.this, "客户端网络异常");
-                                break;
-                            case SPError.ERROR_SERVER:
-                                Log.d(TAG, "服务器异常");
-                                ToastUtils.showTestShort(MainActivity.this, "服务器异常");
-                                break;
-                            case SPError.Register.ACCOUNT_EXIST:
-                                Log.d(TAG, "用户已经存在");
-                                ToastUtils.showTestShort(MainActivity.this, "用户已经存在");
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
+            @Override
+            public void onFailure(int errorCode, String errorMessage) {
+                switch (errorCode) {
+                    case SPError.ERROR_CLIENT_NET:
+                        Log.d(TAG, "客户端网络异常");
+                        ToastUtils.showTestShort(MainActivity.this, "客户端网络异常");
+                        break;
+                    case SPError.ERROR_SERVER:
+                        Log.d(TAG, "服务器异常");
+                        ToastUtils.showTestShort(MainActivity.this, "服务器异常");
+                        break;
+                    case SPError.Register.ACCOUNT_EXIST:
+                        Log.d(TAG, "用户已经存在");
+                        ToastUtils.showTestShort(MainActivity.this, "用户已经存在");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
 
     }

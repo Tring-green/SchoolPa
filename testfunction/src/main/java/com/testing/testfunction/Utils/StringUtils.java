@@ -2,7 +2,6 @@ package com.testing.testfunction.Utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -33,15 +32,14 @@ public class StringUtils {
         return true;
     }
 
-    public static String handlePair(Map<String, String> map) throws UnsupportedEncodingException {
+    public static String handlePair(Map<String, String> body) throws UnsupportedEncodingException {
         String result = "";
-        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> entry = it.next();
-            result += entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), "utf-8");
-            result += "&";
+        for (Map.Entry<String, String> me : body.entrySet()) {
+            String key = me.getKey();
+            String value = me.getValue();
+            result += key + "=" + URLEncoder.encode(value, "utf-8") + "&";
         }
-        return result.substring(0, result.length() - 2);
+        return result.substring(0, result.length() - 1);
     }
 
 }
