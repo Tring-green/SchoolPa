@@ -18,10 +18,10 @@ import com.testing.testfunction.Domain.NetTask;
 import com.testing.testfunction.Lib.Callback.ObjectCallback;
 import com.testing.testfunction.Lib.SPChatManager;
 import com.testing.testfunction.Lib.SPError;
+import com.testing.testfunction.Lib.SPHttpClient;
 import com.testing.testfunction.Service.BackgroundService;
 import com.testing.testfunction.Utils.CommonUtil;
 import com.testing.testfunction.Utils.DirUtil;
-import com.testing.testfunction.Lib.SPHttpClient;
 import com.testing.testfunction.Utils.SerializableUtil;
 import com.testing.testfunction.Utils.ThreadUtils;
 import com.testing.testfunction.Utils.ToastUtils;
@@ -30,7 +30,6 @@ import com.testing.testfunction.db.AccountDao;
 import com.testing.testfunction.db.BackTaskDao;
 
 import java.io.File;
-import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText mEt_passwd;
     private SPHttpClient mHttpClass;
     private EditText mEt_name;
-    private EditText mEt_content;
-    private Socket mClient;
-    private String dstName = "10.0.2.2";
-    private int dstPort = 10000;
     private AccountDao mDao;
     private Account mAccount;
     private String mIconDir;
@@ -85,22 +80,23 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         mDao = new AccountDao(this);
         mAccount = mDao.getCurrentAccount();
-        mIconDir = DirUtil.getIconDir(this);
-        System.out.println(mIconDir);
-        mSdcardTempFile = new File(mIconDir, CommonUtil.string2MD5(mAccount.getUserId()));
-
-        if (!mSdcardTempFile.getParentFile().exists()) {
-            mSdcardTempFile.getParentFile().mkdirs();
+        if (mAccount != null) {
+            mIconDir = DirUtil.getIconDir(this);
+            System.out.println(mIconDir);
+            mSdcardTempFile = new File(mIconDir, CommonUtil.string2MD5(mAccount.getUserId()));
+            if (!mSdcardTempFile.getParentFile().exists()) {
+                mSdcardTempFile.getParentFile().mkdirs();
+            }
+            mAccount.setIcon(mSdcardTempFile.getAbsolutePath());
         }
-
-        mAccount.setIcon(mSdcardTempFile.getAbsolutePath());
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mHttpClass.disconnect();
+        if (mHttpClass != null)
+            mHttpClass.disconnect();
     }
 
     private void initView() {
@@ -230,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 AccountDao dao = new AccountDao(MainActivity.this);
                 data.transcoding();
                 data.setCurrent(true);
-                Account localAccount = dao.getByAccount(data.getUserId());
+                Account localAccount = dao.getByUserId(data.getUserId());
                 if (localAccount != null) {
                     dao.updateAccount(data);
                 } else {

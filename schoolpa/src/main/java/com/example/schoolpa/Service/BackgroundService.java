@@ -1,19 +1,16 @@
-package com.testing.testfunction.Service;
+package com.example.schoolpa.Service;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.database.Cursor;
 
-import com.testing.testfunction.ChatApplication;
-import com.testing.testfunction.Domain.Account;
-import com.testing.testfunction.Domain.NetTask;
-import com.testing.testfunction.Lib.SPHttpClient;
-import com.testing.testfunction.Lib.SPHttpParams;
-import com.testing.testfunction.Utils.SerializableUtil;
-import com.testing.testfunction.db.BackTaskDao;
-import com.testing.testfunction.db.SPDB;
+import com.example.schoolpa.Bean.Account;
+import com.example.schoolpa.Bean.NetTask;
+import com.example.schoolpa.ChatApplication;
+import com.example.schoolpa.Utils.SerializableUtil;
+import com.example.schoolpa.db.BackTaskDao;
+import com.example.schoolpa.db.SPDB;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,9 +28,9 @@ public class BackgroundService extends IntentService {
 
         Account account = ((ChatApplication) getApplication()).getCurrentAccount();
         if (account == null) {
-            return;
+            return ;
         }
-        final BackTaskDao dao = new BackTaskDao(this);
+        BackTaskDao dao = new BackTaskDao(this);
         Cursor cursor = dao.query(account.getUserId(), 0);
 
         Map<Long, String> map = new HashMap<>();
@@ -64,27 +61,19 @@ public class BackgroundService extends IntentService {
                 String url = task.getUrl();
                 Map<String, String> headers = task.getHeaders();
                 Map<String, String> paramaters = task.getParameters();
-                /*boolean result = HMHttpManaer.getInstance().post(url, headers,
-                        paramaters);*/
-                SPHttpParams httpParams = new SPHttpParams(5000, 5000, true);
-                SPHttpClient.getInstance(this).startConnectionNOThread(url, "POST", httpParams, headers, paramaters,
-                        new SPHttpClient.OnVisitingListener() {
+               /* boolean result = HMHttpManaer.getInstance().post(url, headers,
+                        paramaters);
 
-                    @Override
-                    public void onSuccess(String result) {
-                        if (result.contains("true")) {
-                            System.out.println("#########9");
-                            dao.updateState(id, 2);
-                        } else {
-                            System.out.println("#########10");
-                            dao.updateState(id, 0);
-                        }
-                    }
-                    @Override
-                    public void onFailure(IOException e) {
+                if (result) {
 
-                    }
-                });
+                    System.out.println("#########9");
+
+                    dao.updateState(id, 2);
+                } else {
+                    System.out.println("#########10");
+
+                    dao.updateState(id, 0);
+                }*/
             } catch (Exception e) {
                 e.printStackTrace();
             }

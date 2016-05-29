@@ -16,6 +16,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name=".ChatApplication"
         >
         <activity
             android:name=".Activity.MainActivity"
@@ -47,6 +48,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name=".Activity.LoginActivity"></activity>
+        <receiver android:name=".Receiver.ConnectedReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".Service.BackgroundService" />
     </application>
 
 </manifest>

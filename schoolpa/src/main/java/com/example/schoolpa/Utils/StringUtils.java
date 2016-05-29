@@ -2,7 +2,6 @@ package com.example.schoolpa.Utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -28,21 +27,19 @@ public class StringUtils {
     }
 
     public static boolean isEffective(String str) {
-        if (str == null || str.equals("") || str.equals("Nothing!"))
+        if (str.equals("") || str.equals("Nothing!") || str == null)
             return false;
         return true;
     }
 
-    public static String handlePair(Map<String, String> map) throws UnsupportedEncodingException {
+    public static String handlePair(Map<String, String> body) throws UnsupportedEncodingException {
         String result = "";
-        Iterator<Map.Entry<String, String>> it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String> entry = it.next();
-            result += entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), "utf-8");
-            result += "&";
+        for (Map.Entry<String, String> me : body.entrySet()) {
+            String key = me.getKey();
+            String value = me.getValue();
+            result += key + "=" + URLEncoder.encode(value, "utf-8") + "&";
         }
-        String substring = result.substring(0, result.length() - 1);
-        return substring;
+        return result.substring(0, result.length() - 1);
     }
 
 }

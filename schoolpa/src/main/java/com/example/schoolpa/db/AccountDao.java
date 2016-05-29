@@ -1,4 +1,4 @@
-package com.testing.testfunction.db;
+package com.example.schoolpa.db;
 
 
 import android.content.ContentValues;
@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.testing.testfunction.Domain.Account;
+import com.example.schoolpa.Bean.Account;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,11 +85,11 @@ public class AccountDao {
 		return null;
 	}
 
-	public Account getByUserId(String userId) {
+	public Account getByAccount(String account) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		String sql = "select * from " + SPDB.Account.TABLE_NAME + " where "
 				+ SPDB.Account.COLUMN_USERID + "=?";
-		Cursor cursor = db.rawQuery(sql, new String[] { userId });
+		Cursor cursor = db.rawQuery(sql, new String[] { account });
 
 		if (cursor != null) {
 			while (cursor.moveToNext()) {

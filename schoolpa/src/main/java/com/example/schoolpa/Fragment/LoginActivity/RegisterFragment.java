@@ -11,13 +11,16 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import com.example.schoolpa.Bean.HttpRegister;
+import com.example.schoolpa.Bean.Account;
+import com.example.schoolpa.Bean.SPError;
 import com.example.schoolpa.Lib.Callback.ObjectCallback;
 import com.example.schoolpa.Lib.SPChatManager;
-import com.example.schoolpa.Lib.SPHttpClass;
+import com.example.schoolpa.Lib.SPHttpClient;
 import com.example.schoolpa.R;
 import com.example.schoolpa.Utils.TextUtils;
+import com.example.schoolpa.Utils.ToastUtils;
 import com.example.schoolpa.Utils.UrlUtils;
+import com.example.schoolpa.db.AccountDao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +31,16 @@ import java.util.Map;
 public class RegisterFragment extends Fragment {
 
 
+    private static final String TAG = "REGISTERFRAGMENT";
     private View mView;
     private AutoCompleteTextView mTv_UserId;
     private AutoCompleteTextView mTv_Passwd;
     private String mUserId;
     private String mPasswd;
-    private SPHttpClass mHttpClass;
+    private SPHttpClient mHttpClass;
 
     public RegisterFragment() {
+
     }
 
 
@@ -89,17 +94,41 @@ public class RegisterFragment extends Fragment {
                     parameter.put("userId", mUserId);
                     parameter.put("passwd", mPasswd);
 
-                    mHttpClass = SPChatManager.getInstance(getActivity()).sendRequest(url, parameter, new
-                            ObjectCallback<HttpRegister>() {
+                    mHttpClass = SPChatManager.getInstance(getActivity()).sendRequest(url,null, parameter, new
+                            ObjectCallback<Account>() {
                                 @Override
-                                public void onSuccess(HttpRegister data) {
+                                public void onSuccess(Account data) {
                                     Log.d("onSuccess", data.toString());
+                                    AccountDao dao = new AccountDao(getActivity());
+                                    data.transcoding();
+                                    data.setCurrent(true);
+                                    Account localAccount = dao.getByAccount(data.getUserId());
+                                    if (localAccount != null) {
+                                        dao.updateAccount(data);
+                                    } else {
+                                        dao.addAccount(data);
+                                    }
                                     TurnToFillInfo();
                                 }
 
                                 @Override
                                 public void onFailure(int errorCode, String errorMessage) {
-                                    Log.d("onFailure", errorCode + " :" + errorMessage);
+                                    switch (errorCode) {
+                                        case SPError.ERROR_CLIENT_NET:
+                                            Log.d(TAG, "客户端网络异常");
+                                            ToastUtils.showTestShort(getActivity(), "客户端网络异常");
+                                            break;
+                                        case SPError.ERROR_SERVER:
+                                            Log.d(TAG, "服务器异常");
+                                            ToastUtils.showTestShort(getActivity(), "服务器异常");
+                                            break;
+                                        case SPError.Register.ACCOUNT_EXIST:
+                                            Log.d(TAG, "用户已经存在");
+                                            ToastUtils.showTestShort(getActivity(), "用户已经存在");
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             });
 
