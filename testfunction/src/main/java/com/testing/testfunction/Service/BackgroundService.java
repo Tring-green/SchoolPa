@@ -64,8 +64,6 @@ public class BackgroundService extends IntentService {
                 String url = task.getUrl();
                 Map<String, String> headers = task.getHeaders();
                 Map<String, String> paramaters = task.getParameters();
-                /*boolean result = HMHttpManaer.getInstance().post(url, headers,
-                        paramaters);*/
                 SPHttpParams httpParams = new SPHttpParams(5000, 5000, true);
                 SPHttpClient.getInstance(this).startConnectionNOThread(url, "POST", httpParams, headers, paramaters,
                         new SPHttpClient.OnVisitingListener() {

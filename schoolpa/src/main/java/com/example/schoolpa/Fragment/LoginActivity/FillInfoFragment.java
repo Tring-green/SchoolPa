@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.schoolpa.Activity.MainActivity;
@@ -55,6 +56,7 @@ public class FillInfoFragment extends Fragment {
         }
     }
 
+    private Button mBt_ok;
     private View mView;
     private EditText mEt_name;
 
@@ -68,10 +70,11 @@ public class FillInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_fill_info, container, false);
         verifyStoragePermissions(getActivity());
-        initView();
         initData();
+        initView();
         return mView;
     }
+
     private AccountDao mDao;
     private Account mAccount;
     private String mIconDir;
@@ -92,56 +95,60 @@ public class FillInfoFragment extends Fragment {
     }
 
 
-
     private void initView() {
-        mEt_name = (EditText) mView.findViewById(R.id.name);
-    }
+        mEt_name = (EditText) mView.findViewById(R.id.fill_info_et_name);
+        mBt_ok = (Button) mView.findViewById(R.id.fill_info_btn_ok);
+        mBt_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    String name = mEt_name.getText().toString();
+                    if (TextUtils.isEmpty(name)) {
+                        ToastUtils.showTestShort(getActivity(), "名字不能为空");
+                    }
 
-    public void fillinfo(View view) {
-        String name = mEt_name.getText().toString();
-        if (TextUtils.isEmpty(name)) {
-            ToastUtils.showTestShort(getActivity(), "名字不能为空");
-        }
-
-        mAccount.setName(name);
-        mDao.updateAccount(mAccount);
+                    mAccount.setName(name);
+                    mDao.updateAccount(mAccount);
 
 
-        String url = UrlUtils.DATABASEURL + "user/nameChange";
+                    String url = UrlUtils.DATABASEURL + "user/nameChange";
 
-        Map<String, String> headers = new HashMap<>();
-        headers.put("userId", mAccount.getUserId());
-        headers.put("token", mAccount.getToken());
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("userId", mAccount.getUserId());
+                    headers.put("token", mAccount.getToken());
 
-        Map<String, String> parameters = new HashMap<>();
+                    Map<String, String> parameters = new HashMap<>();
 
-        parameters.put("name", name);
+                    parameters.put("name", name);
 
-        NetTask request = new NetTask();
-        request.setUrl(url);
-        request.setMethod(0);
-        request.setHeaders(headers);
-        request.setParameters(parameters);
+                    NetTask request = new NetTask();
+                    request.setUrl(url);
+                    request.setMethod(0);
+                    request.setHeaders(headers);
+                    request.setParameters(parameters);
 
-        String outPath = DirUtil.getTaskDir(getActivity()) + "/"
-                + System.currentTimeMillis();
-        try {
-            SerializableUtil.write(request, outPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                    String outPath = DirUtil.getTaskDir(getActivity()) + "/"
+                            + System.currentTimeMillis();
+                    try {
+                        SerializableUtil.write(request, outPath);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-        BackTask task = new BackTask();
-        task.setOwner(mAccount.getUserId());
-        task.setPath(outPath);
-        task.setState(0);
+                    BackTask task = new BackTask();
+                    task.setOwner(mAccount.getUserId());
+                    task.setPath(outPath);
+                    task.setState(0);
 
-        new BackTaskDao(getActivity()).addTask(task);
-        getActivity().startService(new Intent(getActivity(), BackgroundService.class));
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+                    new BackTaskDao(getActivity()).addTask(task);
+                    getActivity().startService(new Intent(getActivity(), BackgroundService.class));
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
 
+                }
+            }
+        });
     }
 
 

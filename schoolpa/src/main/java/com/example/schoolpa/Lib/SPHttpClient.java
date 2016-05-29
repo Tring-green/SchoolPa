@@ -1,5 +1,6 @@
 package com.example.schoolpa.Lib;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.example.schoolpa.Utils.StreamUtils;
@@ -67,25 +68,33 @@ public class SPHttpClient {
             conn.connect();
                     /* 若状态码为200 ok */
             if (conn.getResponseCode() == 200) {
-                ThreadUtils.runOnUiThread(mContext, new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            listener.onSuccess(StreamUtils.getString(conn.getInputStream()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                if (mContext instanceof Activity) {
+                    ThreadUtils.runOnUiThread(mContext, new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                listener.onSuccess(StreamUtils.getString(conn.getInputStream()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    listener.onSuccess(StreamUtils.getString(conn.getInputStream()));
+                }
             }
         } catch (final IOException e) {
             e.printStackTrace();
-            ThreadUtils.runOnUiThread(mContext, new Runnable() {
-                @Override
-                public void run() {
-                    listener.onFailure(e);
-                }
-            });
+            if (mContext instanceof Activity) {
+                ThreadUtils.runOnUiThread(mContext, new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onFailure(e);
+                    }
+                });
+            } else {
+                listener.onFailure(e);
+            }
         }
 
     }
@@ -119,6 +128,22 @@ public class SPHttpClient {
         });
     }
 
+    public void startConnectionNOThread(final String url, final String method, final SPHttpParams httpParams, final
+    Map<String, String> header, final Map<String, String> body, final OnVisitingListener listener) {
+        switch (method.toUpperCase()) {
+            case "POST":
+                doPost(url, httpParams, header, body, listener);
+                break;
+            case "GET":
+                break;
+            case "PUT":
+                break;
+            case "DELETE":
+                break;
+            default:
+                break;
+        }
+    }
 
     private void sendHeader(HttpURLConnection conn, Map<String, String> header) {
         for (Map.Entry<String, String> me : header.entrySet()) {

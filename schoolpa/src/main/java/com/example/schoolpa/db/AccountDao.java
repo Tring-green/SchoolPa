@@ -85,11 +85,11 @@ public class AccountDao {
 		return null;
 	}
 
-	public Account getByAccount(String account) {
+	public Account getByUserId(String userId) {
 		SQLiteDatabase db = helper.getReadableDatabase();
 		String sql = "select * from " + SPDB.Account.TABLE_NAME + " where "
 				+ SPDB.Account.COLUMN_USERID + "=?";
-		Cursor cursor = db.rawQuery(sql, new String[] { account });
+		Cursor cursor = db.rawQuery(sql, new String[] { userId });
 
 		if (cursor != null) {
 			while (cursor.moveToNext()) {

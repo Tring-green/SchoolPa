@@ -102,7 +102,7 @@ public class RegisterFragment extends Fragment {
                                     AccountDao dao = new AccountDao(getActivity());
                                     data.transcoding();
                                     data.setCurrent(true);
-                                    Account localAccount = dao.getByAccount(data.getUserId());
+                                    Account localAccount = dao.getByUserId(data.getUserId());
                                     if (localAccount != null) {
                                         dao.updateAccount(data);
                                     } else {
