@@ -2,36 +2,30 @@ package com.testing.testfunction;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.testing.testfunction.Domain.Account;
-import com.testing.testfunction.Domain.BackTask;
-import com.testing.testfunction.Domain.NetTask;
-import com.testing.testfunction.Lib.Callback.ObjectCallback;
-import com.testing.testfunction.Lib.SPChatManager;
-import com.testing.testfunction.Lib.SPError;
 import com.testing.testfunction.Lib.SPHttpClient;
-import com.testing.testfunction.Service.BackgroundService;
+import com.testing.testfunction.Service.CoreService;
 import com.testing.testfunction.Utils.CommonUtil;
 import com.testing.testfunction.Utils.DirUtil;
-import com.testing.testfunction.Utils.SerializableUtil;
 import com.testing.testfunction.Utils.ThreadUtils;
-import com.testing.testfunction.Utils.ToastUtils;
-import com.testing.testfunction.Utils.UrlUtils;
 import com.testing.testfunction.db.AccountDao;
-import com.testing.testfunction.db.BackTaskDao;
+import com.testing.testfunction.request.Request;
+import com.testing.testfunction.request.TextRequest;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +46,26 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private EditText mEt_content;
+    private Button mBt_connect;
+    private Button mBt_message;
+    private Button mBt_disconnect;
+
+    private Socket mClient;
+    private String mDstName = "10.0.2.2";
+    private int mDstPort = 10000;
+    private EditText mEt_au;
+
+    private PushReceiver mPushReceiver = new PushReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (PushReceiver.ACTION_TEXT.equals(action)) {
+                String text = intent.getStringExtra(PushReceiver.DATA_KEY);
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
@@ -72,8 +86,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         verifyStoragePermissions(this);
         initView();
-        initData();
+        //initData();
         ThreadUtils.init(50);
+
+        startService(new Intent(this, CoreService.class));
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(PushReceiver.ACTION_TEXT);
+        registerReceiver(mPushReceiver, filter);
 
     }
 
@@ -97,13 +116,14 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if (mHttpClass != null)
             mHttpClass.disconnect();
+        unregisterReceiver(mPushReceiver);
     }
 
     private void initView() {
-        //mEt_content = (EditText) findViewById(R.id.content);
-        mEt_userId = (EditText) findViewById(R.id.userId);
-        mEt_passwd = (EditText) findViewById(R.id.passwd);
-        mEt_name = (EditText) findViewById(R.id.name);
+        mEt_content = (EditText) findViewById(R.id.content);
+        //mEt_au = (EditText) findViewById(R.id.et_au);
+        //mEt_passwd = (EditText) findViewById(R.id.connect);
+        //mEt_name = (EditText) findViewById(R.id.disconnect);
     }
 
     //public void clickConnect(View view) {
@@ -113,14 +133,18 @@ public class MainActivity extends AppCompatActivity {
     //
     //            try {
     //                if (mClient == null || mClient.isClosed()) {
-    //                    mClient = new Socket(dstName, dstPort);
+    //
+    //                    mClient = new Socket(mDstName, mDstPort);
     //                }
     //
     //                InputStream is = mClient.getInputStream();
     //                byte[] buffer = new byte[1024];
     //                int len;
     //                while ((len = is.read(buffer)) != -1) {
+    //
     //                    final String text = new String(buffer, 0, len);
+    //
+    //
     //                    runOnUiThread(new Runnable() {
     //                        @Override
     //                        public void run() {
@@ -136,13 +160,13 @@ public class MainActivity extends AppCompatActivity {
     //
     //    }).start();
     //}
-    //
-    //public void clickMessage(View view) {
-    //    final String content = mEt_content.getText().toString();
+
+    //public void clickAuth(View view) {
+    //    final String content = mEt_au.getText().toString();
     //    if (content == null && content.equals("")) {
     //        return;
     //    }
-    //    OutputStream os = null;
+    //    OutputStream os;
     //    try {
     //        os = mClient.getOutputStream();
     //        os.write(content.getBytes());
@@ -150,10 +174,33 @@ public class MainActivity extends AppCompatActivity {
     //        e.printStackTrace();
     //    }
     //}
-    //
+
+    public void clickMessage(View view) {
+        final String content = mEt_content.getText().toString();
+        if (content == null && content.equals("")) {
+            return;
+        }
+
+        String sender = "A";
+        String token = "A";
+        String receiver = "B";
+        Request request = new TextRequest(sender, token, receiver, content);
+        ConnectorManager.getInstance().putRequest(request);
+
+        //ConnectorManager.getInstance().putRequest(content);
+        //OutputStream os;
+        //try {
+        //    os = mClient.getOutputStream();
+        //    os.write(content.getBytes());
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
+
+    }
+
     //public void clickDisconnect(View view) {
     //    try {
-    //        if (mClient != null && mClient.isClosed()) {
+    //        if (mClient != null && !mClient.isClosed()) {
     //            mClient.close();
     //            mClient = null;
     //        }
@@ -163,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
     //
     //}
 
-    public void fillinfo(View view) {
+  /*  public void fillinfo(View view) {
         String name = mEt_name.getText().toString();
         if (TextUtils.isEmpty(name)) {
             ToastUtils.showTestShort(getApplicationContext(), "名字不能为空");
@@ -209,9 +256,9 @@ public class MainActivity extends AppCompatActivity {
         finish();
 
     }
+*/
 
-
-    public void register(View view) {
+    /*public void register(View view) {
         mUserId = mEt_userId.getText().toString();
         mPasswd = mEt_passwd.getText().toString();
         String url = UrlUtils.DATABASEURL + "register";
@@ -256,5 +303,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
+    }*/
 }

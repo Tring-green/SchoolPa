@@ -1,1 +1,1 @@
-include ':schoolpa', ':testfunction'
+include ':schoolpa', ':testfunction', ':minatcp'
