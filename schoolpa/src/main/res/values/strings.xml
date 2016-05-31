@@ -26,4 +26,9 @@
     <string name="enterId">请输入用户名</string>
     <string name="enterpasswd">请输入密码</string>
 
+    <!-- Home -->
+    <string name="home_tab_chat">消息</string>
+    <string name="home_tab_contact">通讯录</string>
+    <string name="home_tab_discover">发现</string>
+    <string name="home_tab_me">我</string>
 </resources>

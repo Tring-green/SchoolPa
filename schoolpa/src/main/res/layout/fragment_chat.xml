@@ -2,31 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_gray"
     android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/homeTabContent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <android.support.v4.app.FragmentTabHost
-        android:id="@android:id/tabhost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#FFF1F1F1" />
-
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0" />
-    </android.support.v4.app.FragmentTabHost>
+   <ListView
+       android:id="@+id/chat_list_view"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:listSelector="@drawable/btn_item_selector" >
+   </ListView>
 
 </LinearLayout>

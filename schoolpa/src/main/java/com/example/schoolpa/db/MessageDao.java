@@ -19,7 +19,7 @@ public class MessageDao {
 	public void addMessage(Message message) {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put(SPDB.Message.COLUMN_USERID, message.getAccount());
+		values.put(SPDB.Message.COLUMN_USERID, message.getUserId());
 		values.put(SPDB.Message.COLUMN_CONTENT, message.getContent());
 		values.put(SPDB.Message.COLUMN_CREATE_TIME, message.getCreateTime());
 		values.put(SPDB.Message.COLUMN_DIRECTION, message.getDirection());
@@ -34,7 +34,7 @@ public class MessageDao {
 		String sql = "select * from " + SPDB.Conversation.TABLE_NAME
 				+ " where " + SPDB.Conversation.COLUMN_USERID + "=? and "
 				+ SPDB.Conversation.COLUMN_OWNER + "=?";
-		Cursor cursor = db.rawQuery(sql, new String[] { message.getAccount(),
+		Cursor cursor = db.rawQuery(sql, new String[] { message.getUserId(),
 				message.getOwner() });
 		if (cursor != null && cursor.moveToNext()) {
 			// String account = cursor.getString(cursor
@@ -63,14 +63,14 @@ public class MessageDao {
 					+ " where " + SPDB.Message.COLUMN_READ + "=0 and "
 					+ SPDB.Message.COLUMN_USERID + "=? and "
 					+ SPDB.Message.COLUMN_OWNER + "=?";
-			cursor = db.rawQuery(sql, new String[] { message.getAccount(),
+			cursor = db.rawQuery(sql, new String[] { message.getUserId(),
 					message.getOwner() });
 			if (cursor != null && cursor.moveToNext()) {
 				unread = cursor.getInt(0);
 			}
 
 			values = new ContentValues();
-			values.put(SPDB.Conversation.COLUMN_USERID, message.getAccount());
+			values.put(SPDB.Conversation.COLUMN_USERID, message.getUserId());
 
 			int type = message.getType();
 			if (type == 0) {
@@ -91,14 +91,14 @@ public class MessageDao {
 			String whereClause = SPDB.Conversation.COLUMN_OWNER + "=? and "
 					+ SPDB.Conversation.COLUMN_USERID + "=?";
 			String[] whereArgs = new String[] { message.getOwner(),
-					message.getAccount() };
+					message.getUserId() };
 
 			db.update(SPDB.Conversation.TABLE_NAME, values, whereClause,
 					whereArgs);
 
 		} else {
 			Conversation conversation = new Conversation();
-			conversation.setAccount(message.getAccount());
+			conversation.setAccount(message.getUserId());
 			int type = message.getType();
 			if (type == 0) {
 				conversation.setContent(message.getContent());

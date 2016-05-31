@@ -5,11 +5,11 @@ import java.lang.reflect.ParameterizedType;
 /**
  * Created by admin on 2016/5/27.
  */
-public abstract class ObjectCallback<T> {
+public abstract class SPObjectCallback<T> {
 
     private final Class<T> clazz;
 
-    protected ObjectCallback() {
+    protected SPObjectCallback() {
         ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
         clazz = (Class<T>) type.getActualTypeArguments()[0];
     }

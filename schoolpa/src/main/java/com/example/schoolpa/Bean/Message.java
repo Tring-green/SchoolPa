@@ -3,7 +3,7 @@ package com.example.schoolpa.Bean;
 public class Message {
 	// String COLUMN_ID = "_id";
 	// String COLUMN_OWNER = "owner";
-	// String COLUMN_USERID = "account";// 接收者或发送者
+	// String COLUMN_USERID = "userId";// 接收者或发送者
 	// String COLUMN_DIRECTION = "direct";// 0:发送 1:接收
 	// String COLUMN_TYPE = "type";
 	// String COLUMN_CONTENT = "content";
@@ -13,7 +13,7 @@ public class Message {
 
 	private long id;
 	private String owner;
-	private String account;
+	private String userId;
 	private int direction;// 0:发送 1:接收
 	private int type;// 0:text 1:image
 	private String content;
@@ -30,12 +30,12 @@ public class Message {
 		this.owner = owner;
 	}
 
-	public String getAccount() {
-		return account;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getDirection() {

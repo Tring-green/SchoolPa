@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.schoolpa.Fragment.ChatFragment;
+import com.example.schoolpa.Fragment.HomeFragment;
 import com.example.schoolpa.Fragment.ScheduleFragment;
 
 /**
@@ -26,7 +26,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         //初始化公文通界面
         {
 
-            return ChatFragment.newInstance();
+            return HomeFragment.newInstance();
         }
         if (position == 1)
             //初始化课表界面

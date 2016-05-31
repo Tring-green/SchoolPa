@@ -13,7 +13,7 @@ import android.widget.Button;
 
 import com.example.schoolpa.Bean.Account;
 import com.example.schoolpa.Bean.SPError;
-import com.example.schoolpa.Lib.Callback.ObjectCallback;
+import com.example.schoolpa.Lib.Callback.SPObjectCallback;
 import com.example.schoolpa.Lib.SPChatManager;
 import com.example.schoolpa.Lib.SPHttpClient;
 import com.example.schoolpa.R;
@@ -95,7 +95,7 @@ public class RegisterFragment extends Fragment {
                     parameter.put("passwd", mPasswd);
 
                     mHttpClass = SPChatManager.getInstance(getActivity()).sendRequest(url,null, parameter, new
-                            ObjectCallback<Account>() {
+                            SPObjectCallback<Account>() {
                                 @Override
                                 public void onSuccess(Account data) {
                                     Log.d("onSuccess", data.toString());

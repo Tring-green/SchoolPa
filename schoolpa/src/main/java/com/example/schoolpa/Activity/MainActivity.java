@@ -1,7 +1,6 @@
 package com.example.schoolpa.Activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.schoolpa.Adapter.SectionsPagerAdapter;
-import com.example.schoolpa.Fragment.ChatFragment;
 import com.example.schoolpa.Fragment.Data.OfficialDocumentData;
 import com.example.schoolpa.Fragment.Data.ScheduleData;
 import com.example.schoolpa.Fragment.OfficialDocumentFragment;
@@ -30,7 +28,7 @@ import com.example.schoolpa.Utils.SharedPreferenceUtils;
  *
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        ScheduleFragment.OnListFragmentInteractionListener, ChatFragment.OnFragmentInteractionListener,
+        ScheduleFragment.OnListFragmentInteractionListener,
         OfficialDocumentFragment.OnListFragmentInteractionListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -238,8 +236,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFab.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        mFab.setVisibility(View.GONE);
-    }
 }

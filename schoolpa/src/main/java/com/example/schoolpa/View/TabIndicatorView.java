@@ -17,8 +17,8 @@ public class TabIndicatorView extends RelativeLayout {
     private ImageView ivTabIcon;
     private TextView tvTabHint;
     private TextView tvTabUnRead;
-
-    private int normalIconId, focusIconId;
+    private int focusId = -1, normalId = -1;
+    private int unreadCount;
 
     public TabIndicatorView(Context context) {
         this(context, null);
@@ -34,22 +34,19 @@ public class TabIndicatorView extends RelativeLayout {
         tvTabHint = (TextView) findViewById(R.id.tab_indicator_hint);
         tvTabUnRead = (TextView) findViewById(R.id.tab_indicator_unread);
 
-        setTabUnreadCount(0);
+        setTabUnreadCount(10);
     }
 
-    //设置tab的title
-    public void setTabTitle(String title) {
-        tvTabHint.setText(title);
-    }
 
-    public void setTabTitle(int titleId) {
-        tvTabHint.setText(titleId);
+
+    public void setTabHint(int hintId) {
+        tvTabHint.setText(hintId);
     }
 
     //初始化图标
     public void setTabIcon(int normalIconId, int focusIconId) {
-        this.normalIconId = normalIconId;
-        this.focusIconId = focusIconId;
+        this.normalId = normalIconId;
+        this.focusId = focusIconId;
 
         ivTabIcon.setImageResource(normalIconId);
     }
@@ -68,8 +65,31 @@ public class TabIndicatorView extends RelativeLayout {
         }
     }
 
-    //设置选中
-    public void setTabSelected(boolean selected) {
-        ivTabIcon.setImageResource(selected ? focusIconId : normalIconId);
+    public void setUnread(int unreadCount) {
+        this.unreadCount = unreadCount;
+
+        if (unreadCount <= 0) {
+            tvTabUnRead.setVisibility(View.GONE);
+        } else {
+            if (unreadCount >= 100) {
+                tvTabUnRead.setText("99+");
+            } else {
+                tvTabUnRead.setText("" + unreadCount);
+            }
+            tvTabUnRead.setVisibility(View.VISIBLE);
+        }
     }
+    public void setCurrentFocus(boolean current) {
+        if (current) {
+            if (focusId != -1) {
+                ivTabIcon.setImageResource(focusId);
+            }
+        } else {
+            if (normalId != -1) {
+                ivTabIcon.setImageResource(normalId);
+            }
+        }
+    }
+
+
 }
