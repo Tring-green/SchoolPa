@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private File mSdcardTempFile;
     private String TAG = "SignUpFra";
 
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private EditText mEt_content;
     private Button mBt_connect;
@@ -65,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }
         }
+    };
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
     public static void verifyStoragePermissions(Activity activity) {

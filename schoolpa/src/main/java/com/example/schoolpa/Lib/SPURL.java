@@ -1,33 +1,19 @@
-package com.example.schoolpa.Lib;
+package com.example.schoolpa.lib;
 
 public class SPURL {
 
-	 public static String BASE_HTTP = "http://192.168.1.100:8080/ChatServer";
-	 public static String BASE_SP_HOST = "192.168.1.100";
-	 public static int BASE_SP_PORT = 9090;
+	 public static String BASE_HTTP = "http://10.0.2.2:8000/";
+	 public static String BASE_SP_HOST = "10.0.2.2";
+	 public static int BASE_SP_PORT = 9000;
 	 public static String BASE_QR = BASE_HTTP + "/QR/";
-	//
-//	public static String BASE_HTTP = "http://192.168.199.105:8080/ChatServer";
-//	public static String BASE_SP_HOST = "192.168.199.105";
-//	public static int BASE_SP_PORT = 9090;
-//	public static String BASE_QR = BASE_HTTP + "/QR/";
 
-	// public static String BASE_HTTP = "http://54.92.45.62:8080/ChatServer";
-	// public static String BASE_SP_HOST = "54.92.45.62";
-	// public static int BASE_SP_PORT = 9090;
-	// public static String BASE_QR = BASE_HTTP + "/QR/";
-
-	// public static String BASE_HTTP = "http://172.30.58.56:8080/ChatServer";
-	// public static String BASE_SP_HOST = "172.30.58.56";
-	// public static int BASE_SP_PORT = 9090;
-	// public static String BASE_QR = BASE_HTTP + "/QR/";
 
 	/**
 	 * 登录部分的url地址
 	 */
-	public final static String URL_HTTP_LOGIN = BASE_HTTP + "/login";
-	public final static String URL_HTTP_REGISTER = BASE_HTTP + "/register";
-	public final static String URL_HTTP_LOGOUT = BASE_HTTP + "/logout";
+	public final static String URL_HTTP_LOGIN = BASE_HTTP + "login";
+	public final static String URL_HTTP_REGISTER = BASE_HTTP + "register";
+	public final static String URL_HTTP_LOGOUT = BASE_HTTP + "logout";
 
 	/**
 	 * 搜索用户

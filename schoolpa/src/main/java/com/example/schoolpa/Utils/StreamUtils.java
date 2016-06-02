@@ -1,4 +1,4 @@
-package com.example.schoolpa.Utils;
+package com.example.schoolpa.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

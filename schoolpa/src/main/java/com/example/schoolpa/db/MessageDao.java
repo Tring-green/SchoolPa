@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.schoolpa.Bean.Conversation;
-import com.example.schoolpa.Bean.Message;
+import com.example.schoolpa.domain.Conversation;
+import com.example.schoolpa.domain.Message;
 
 
 public class MessageDao {

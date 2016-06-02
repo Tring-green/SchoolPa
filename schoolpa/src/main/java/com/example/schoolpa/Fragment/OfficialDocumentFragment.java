@@ -1,4 +1,4 @@
-package com.example.schoolpa.Fragment;
+package com.example.schoolpa.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,12 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.schoolpa.Activity.SplashActivity;
-import com.example.schoolpa.Adapter.OfficialDocumentAdapter;
-import com.example.schoolpa.Fragment.Data.OfficialDocumentData;
+import com.example.schoolpa.activity.SplashActivity;
+import com.example.schoolpa.adapter.OfficialDocumentAdapter;
+import com.example.schoolpa.fragment.Data.OfficialDocumentData;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Utils.HttpUtils;
-import com.example.schoolpa.Utils.ThreadUtils;
+import com.example.schoolpa.utils.HttpUtils;
+import com.example.schoolpa.utils.ThreadUtils;
 
 public class OfficialDocumentFragment extends Fragment {
 

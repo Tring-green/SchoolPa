@@ -16,7 +16,7 @@
         android:layout_marginRight="16dp"
         android:visibility="visible"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.example.schoolpa.Fragment.ElectricFragment"
+        tools:context="com.example.schoolpa.fragment.ElectricFragment"
         tools:listitem="@layout/fragment_electric_item"
         />
 
@@ -81,7 +81,7 @@
         android:layout_marginRight="16dp"
         android:visibility="invisible"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.example.schoolpa.Fragment.ElectricFragment"
+        tools:context="com.example.schoolpa.fragment.ElectricFragment"
         tools:listitem="@layout/fragment_electric_item"
         />
 </FrameLayout>

@@ -1,4 +1,4 @@
-package com.example.schoolpa.Lib;
+package com.example.schoolpa.lib;
 
 /**
  * Created by admin on 2016/5/28.

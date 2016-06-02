@@ -1,11 +1,11 @@
-package com.example.schoolpa.Receiver;
+package com.example.schoolpa.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 
-import com.example.schoolpa.Utils.CommonUtil;
+import com.example.schoolpa.utils.CommonUtil;
 
 
 /**

@@ -1,12 +1,12 @@
-package com.example.schoolpa.Utils;
+package com.example.schoolpa.utils;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.schoolpa.Base.HttpClass;
-import com.example.schoolpa.Bean.RoomBean;
-import com.example.schoolpa.Bean.WebBean;
+import com.example.schoolpa.base.HttpClass;
+import com.example.schoolpa.domain.RoomBean;
+import com.example.schoolpa.domain.WebBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;

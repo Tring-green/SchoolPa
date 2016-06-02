@@ -1,4 +1,4 @@
-package com.example.schoolpa.Adapter;
+package com.example.schoolpa.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,16 +12,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.schoolpa.Activity.DetailDocumentActivity;
-import com.example.schoolpa.Activity.SplashActivity;
-import com.example.schoolpa.Base.BaseViewHolder;
-import com.example.schoolpa.Base.DefaultAdapter;
-import com.example.schoolpa.Bean.WebBean;
-import com.example.schoolpa.Fragment.Data.OfficialDocumentData;
-import com.example.schoolpa.Fragment.Data.OfficialDocumentData.OfficialDocumentItem;
-import com.example.schoolpa.Fragment.OfficialDocumentFragment.OnListFragmentInteractionListener;
+import com.example.schoolpa.activity.DetailDocumentActivity;
+import com.example.schoolpa.activity.SplashActivity;
+import com.example.schoolpa.base.BaseViewHolder;
+import com.example.schoolpa.base.DefaultAdapter;
+import com.example.schoolpa.domain.WebBean;
+import com.example.schoolpa.fragment.Data.OfficialDocumentData;
+import com.example.schoolpa.fragment.Data.OfficialDocumentData.OfficialDocumentItem;
+import com.example.schoolpa.fragment.OfficialDocumentFragment.OnListFragmentInteractionListener;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Utils.HttpUtils;
+import com.example.schoolpa.utils.HttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;

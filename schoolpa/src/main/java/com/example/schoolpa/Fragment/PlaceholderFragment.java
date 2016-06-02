@@ -1,4 +1,4 @@
-package com.example.schoolpa.Fragment;
+package com.example.schoolpa.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,10 +1,10 @@
-package com.example.schoolpa.Lib;
+package com.example.schoolpa.lib;
 
 import android.app.Activity;
 import android.content.Context;
 
-import com.example.schoolpa.Utils.StreamUtils;
-import com.example.schoolpa.Utils.ThreadUtils;
+import com.example.schoolpa.utils.StreamUtils;
+import com.example.schoolpa.utils.ThreadUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -107,28 +107,36 @@ public class SPHttpClient {
     }
 
     public void startConnection(final String url, final String method, final SPHttpParams httpParams, final
-    Map<String, String> header, final Map<String, String> body, final OnVisitingListener listener) {
-        ThreadUtils.execute(new ThreadUtils.onStartThreadListener() {
-            @Override
-            public void onStartThread() {
-                switch (method.toUpperCase()) {
-                    case "POST":
-                        doPost(url, httpParams, header, body, listener);
-                        break;
-                    case "GET":
-                        break;
-                    case "PUT":
-                        break;
-                    case "DELETE":
-                        break;
-                    default:
-                        break;
+    Map<String, String> header, final Map<String, String> body, boolean useThread, final OnVisitingListener listener) {
+        if (useThread)
+            ThreadUtils.execute(new ThreadUtils.onStartThreadListener() {
+                @Override
+                public void onStartThread() {
+                    judgeMethod(method, url, httpParams, header, body, listener);
                 }
-            }
-        });
+            });
+        else
+            judgeMethod(method, url, httpParams, header, body, listener);
     }
 
-    public void startConnectionNOThread(final String url, final String method, final SPHttpParams httpParams, final
+    public void judgeMethod(String method, String targetUrl, SPHttpParams httpParams, Map<String, String> headers,
+                            Map<String, String> body, final OnVisitingListener listener) {
+        switch (method.toUpperCase()) {
+            case "POST":
+                doPost(targetUrl, httpParams, headers, body, listener);
+                break;
+            case "GET":
+                break;
+            case "PUT":
+                break;
+            case "DELETE":
+                break;
+            default:
+                break;
+        }
+
+    }
+   /* public void startConnectionNOThread(final String url, final String method, final SPHttpParams httpParams, final
     Map<String, String> header, final Map<String, String> body, final OnVisitingListener listener) {
         switch (method.toUpperCase()) {
             case "POST":
@@ -143,7 +151,7 @@ public class SPHttpClient {
             default:
                 break;
         }
-    }
+    }*/
 
     private void sendHeader(HttpURLConnection conn, Map<String, String> header) {
         for (Map.Entry<String, String> me : header.entrySet()) {

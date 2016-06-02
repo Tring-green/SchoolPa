@@ -1,4 +1,4 @@
-package com.example.schoolpa.Base;
+package com.example.schoolpa.base;
 
 import android.support.v7.widget.RecyclerView;
 

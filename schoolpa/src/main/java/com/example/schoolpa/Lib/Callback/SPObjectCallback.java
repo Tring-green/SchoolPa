@@ -1,25 +1,26 @@
-package com.example.schoolpa.Lib.Callback;
+package com.example.schoolpa.lib.Callback;
 
 import java.lang.reflect.ParameterizedType;
 
 /**
  * Created by admin on 2016/5/27.
  */
-public abstract class SPObjectCallback<T> {
+public abstract class SPObjectCallBack<T> {
 
     private final Class<T> clazz;
 
-    protected SPObjectCallback() {
+    @SuppressWarnings("unchecked")
+    protected SPObjectCallBack() {
         ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
         clazz = (Class<T>) type.getActualTypeArguments()[0];
     }
 
-    public Class<T> getDataClass() {
+    public Class<T> getClazz() {
         return clazz;
 
     }
 
     abstract public void onSuccess(T data);
 
-    abstract public void onFailure(int errorCode, String errorMessage);
+    abstract public void onError(int errorCode, String errorMessage);
 }

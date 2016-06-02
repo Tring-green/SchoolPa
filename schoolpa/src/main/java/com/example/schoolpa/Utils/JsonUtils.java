@@ -1,4 +1,4 @@
-package com.example.schoolpa.Utils;
+package com.example.schoolpa.utils;
 
 import java.util.Iterator;
 import java.util.List;

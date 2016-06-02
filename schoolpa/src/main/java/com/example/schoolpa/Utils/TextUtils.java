@@ -1,4 +1,4 @@
-package com.example.schoolpa.Utils;
+package com.example.schoolpa.utils;
 
 /**
  * Created by admin on 2016/3/16.

@@ -1,4 +1,4 @@
-package com.example.schoolpa.Lib.Message;
+package com.example.schoolpa.lib.Message;
 
 import java.util.HashMap;
 import java.util.Map;

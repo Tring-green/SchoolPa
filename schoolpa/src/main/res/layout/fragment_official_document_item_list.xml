@@ -21,7 +21,7 @@
             android:layout_margin="16dp"
             android:background="@android:color/darker_gray"
             app:layoutManager="LinearLayoutManager"
-            tools:context="com.example.schoolpa.Fragment.OfficialDocumentFragment"
+            tools:context="com.example.schoolpa.fragment.OfficialDocumentFragment"
             tools:listitem="@layout/fragment_official_document_item_common"
             />
 

@@ -1,4 +1,4 @@
-package com.example.schoolpa.Fragment;
+package com.example.schoolpa.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,14 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 
+import com.example.schoolpa.domain.Account;
 import com.example.schoolpa.ChatApplication;
-import com.example.schoolpa.Fragment.Chat.ChatFragment;
-import com.example.schoolpa.Fragment.Chat.ContactFragment;
-import com.example.schoolpa.Fragment.Chat.DiscoverFragment;
-import com.example.schoolpa.Fragment.Chat.MeFragment;
+import com.example.schoolpa.fragment.Chat.ChatFragment;
+import com.example.schoolpa.fragment.Chat.ContactFragment;
+import com.example.schoolpa.fragment.Chat.DiscoverFragment;
+import com.example.schoolpa.fragment.Chat.MeFragment;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Receiver.PushReceiver;
-import com.example.schoolpa.View.TabIndicatorView;
+import com.example.schoolpa.receiver.PushReceiver;
+import com.example.schoolpa.view.TabIndicatorView;
 import com.example.schoolpa.db.MessageDao;
 
 public class HomeFragment extends Fragment implements TabHost.OnTabChangeListener {
@@ -86,9 +87,12 @@ public class HomeFragment extends Fragment implements TabHost.OnTabChangeListene
 
     private void loadTabData() {
         MessageDao dao = new MessageDao(mActivity);
-        int allUnread = dao.getAllUnread(((ChatApplication) mActivity.getApplication())
-                .getCurrentAccount().getUserId());
-        mChatIndicator.setUnread(allUnread);
+        Account currentAccount = ((ChatApplication) mActivity.getApplication())
+                .getCurrentAccount();
+        if (currentAccount != null)
+            mChatIndicator.setUnread(dao.getAllUnread(currentAccount.getUserId()));
+        else
+            mChatIndicator.setUnread(0);
     }
 
     private void initTabHost() {
@@ -157,9 +161,16 @@ public class HomeFragment extends Fragment implements TabHost.OnTabChangeListene
             mMeIndicator.setCurrentFocus(true);
         }
     }
+
     @Override
     public void onTabChanged(String tabId) {
         System.out.println(tabId);
         setCurrentTabByTag(tabId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mActivity.unregisterReceiver(pushReceiver);
     }
 }

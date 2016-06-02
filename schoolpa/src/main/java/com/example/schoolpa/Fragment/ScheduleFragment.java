@@ -1,4 +1,4 @@
-package com.example.schoolpa.Fragment;
+package com.example.schoolpa.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,17 +17,17 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.example.schoolpa.Adapter.ScheduleAdapter;
-import com.example.schoolpa.Fragment.Data.ScheduleData;
+import com.example.schoolpa.adapter.ScheduleAdapter;
+import com.example.schoolpa.fragment.Data.ScheduleData;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Utils.HttpUtils;
-import com.example.schoolpa.Utils.RegexUtils;
-import com.example.schoolpa.Utils.StringUtils;
-import com.example.schoolpa.Utils.TextUtils;
-import com.example.schoolpa.Utils.ThreadUtils;
-import com.example.schoolpa.Utils.ToastUtils;
-import com.example.schoolpa.Utils.UrlUtils;
-import com.example.schoolpa.View.DividerGridItemDecoration;
+import com.example.schoolpa.utils.HttpUtils;
+import com.example.schoolpa.utils.RegexUtils;
+import com.example.schoolpa.utils.StringUtils;
+import com.example.schoolpa.utils.TextUtils;
+import com.example.schoolpa.utils.ThreadUtils;
+import com.example.schoolpa.utils.ToastUtils;
+import com.example.schoolpa.utils.UrlUtils;
+import com.example.schoolpa.view.DividerGridItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

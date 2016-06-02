@@ -1,7 +1,7 @@
-package com.example.schoolpa.Fragment.Data;
+package com.example.schoolpa.fragment.Data;
 
-import com.example.schoolpa.Bean.WebBean;
-import com.example.schoolpa.Utils.HttpUtils;
+import com.example.schoolpa.domain.WebBean;
+import com.example.schoolpa.utils.HttpUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.example.schoolpa.Utils;
+package com.example.schoolpa.utils;
 
 import android.app.Activity;
 import android.content.Context;

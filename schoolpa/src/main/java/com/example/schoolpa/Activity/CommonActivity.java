@@ -1,4 +1,4 @@
-package com.example.schoolpa.Activity;
+package com.example.schoolpa.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.schoolpa.Fragment.Data.ElectricData;
-import com.example.schoolpa.Fragment.ElectricFragment;
+import com.example.schoolpa.fragment.Data.ElectricData;
+import com.example.schoolpa.fragment.ElectricFragment;
 import com.example.schoolpa.R;
 
 public class CommonActivity extends AppCompatActivity

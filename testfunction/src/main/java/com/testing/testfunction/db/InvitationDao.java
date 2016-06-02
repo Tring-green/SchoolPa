@@ -29,7 +29,7 @@ public class InvitationDao {
 		ContentValues values = new ContentValues();
 		values.put(SPDB.Invitation.COLUMN_OWNER, invitation.getOwner());
 		values.put(SPDB.Invitation.COLUMN_INVITATOR_USERID,
-				invitation.getAccount());
+				invitation.getUserId());
 		values.put(SPDB.Invitation.COLUMN_INVITATOR_NAME, invitation.getName());
 		values.put(SPDB.Invitation.COLUMN_INVITATOR_ICON, invitation.getIcon());
 		values.put(SPDB.Invitation.COLUMN_CONTENT, invitation.getContent());
@@ -49,7 +49,7 @@ public class InvitationDao {
 		String whereClause = SPDB.Invitation.COLUMN_OWNER + "=? and "
 				+ SPDB.Invitation.COLUMN_INVITATOR_USERID + "=?";
 		String[] whereArgs = new String[] { invitation.getOwner(),
-				invitation.getAccount() };
+				invitation.getUserId() };
 
 		db.update(SPDB.Invitation.TABLE_NAME, values, whereClause, whereArgs);
 	}
@@ -81,7 +81,7 @@ public class InvitationDao {
 						.getColumnIndex(SPDB.Invitation.COLUMN_ID));
 
 				invitation = new Invitation();
-				invitation.setAccount(account);
+				invitation.setUserId(account);
 				invitation.setAgree(agree);
 				invitation.setContent(content);
 				invitation.setIcon(icon);

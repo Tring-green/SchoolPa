@@ -1,4 +1,4 @@
-package com.example.schoolpa.Lib.Callback;
+package com.example.schoolpa.lib.Callback;
 
 public interface SPChatCallBack {
 

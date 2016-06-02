@@ -1,9 +1,9 @@
-package com.example.schoolpa.Lib;
+package com.example.schoolpa.lib;
 
 import android.content.Context;
 
-import com.example.schoolpa.Utils.StringUtils;
-import com.example.schoolpa.Utils.ThreadUtils;
+import com.example.schoolpa.utils.StringUtils;
+import com.example.schoolpa.utils.ThreadUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;

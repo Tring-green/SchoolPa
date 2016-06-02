@@ -1,4 +1,4 @@
-package com.example.schoolpa.Adapter;
+package com.example.schoolpa.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

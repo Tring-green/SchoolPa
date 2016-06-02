@@ -1,19 +1,17 @@
-package com.example.schoolpa.Service;
+package com.example.schoolpa.service;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.database.Cursor;
 
-import com.example.schoolpa.Bean.Account;
-import com.example.schoolpa.Bean.NetTask;
+import com.example.schoolpa.domain.Account;
+import com.example.schoolpa.domain.NetTask;
 import com.example.schoolpa.ChatApplication;
-import com.example.schoolpa.Lib.SPHttpClient;
-import com.example.schoolpa.Lib.SPHttpParams;
-import com.example.schoolpa.Utils.SerializableUtil;
+import com.example.schoolpa.lib.SPHttpManager;
+import com.example.schoolpa.utils.SerializableUtil;
 import com.example.schoolpa.db.BackTaskDao;
 import com.example.schoolpa.db.SPDB;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +20,8 @@ import java.util.Map;
  */
 public class BackgroundService extends IntentService {
 
+    private Account mAccount;
+
     public BackgroundService() {
         super("background");
     }
@@ -29,12 +29,12 @@ public class BackgroundService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Account account = ((ChatApplication) getApplication()).getCurrentAccount();
-        if (account == null) {
+        mAccount = ((ChatApplication) getApplication()).getCurrentAccount();
+        if (mAccount == null) {
             return;
         }
         final BackTaskDao dao = new BackTaskDao(this);
-        Cursor cursor = dao.query(account.getUserId(), 0);
+        Cursor cursor = dao.query(mAccount.getUserId(), 0);
 
         Map<Long, String> map = new HashMap<>();
 
@@ -61,32 +61,35 @@ public class BackgroundService extends IntentService {
                 // 改变状态值，正在发送
                 dao.updateState(id, 1);
 
-                String url = task.getUrl();
-                Map<String, String> headers = task.getHeaders();
-                Map<String, String> paramaters = task.getParameters();
-                SPHttpParams httpParams = new SPHttpParams(5000, 5000, true);
-                SPHttpClient.getInstance(this).startConnectionNOThread(url, "POST", httpParams, headers, paramaters,
-                        new SPHttpClient.OnVisitingListener() {
+                int type = task.getType();
+                if (type == NetTask.TYPE_NORMAL) {
+                    doNormalTask(dao, id, task);
+                } else if (type == NetTask.TYPE_UPLOAD) {
+                    doUploadTask(dao, id, task);
+                } else if (type == NetTask.TYPE_DOWNLOAD) {
 
-                            @Override
-                            public void onSuccess(String result) {
-                                if (result.contains("true")) {
-                                    System.out.println("#########9");
-                                    dao.updateState(id, 2);
-                                } else {
-                                    System.out.println("#########10");
-                                    dao.updateState(id, 0);
-                                }
-                            }
-                            @Override
-                            public void onFailure(IOException e) {
-
-                            }
-                        });
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    private void doNormalTask(final BackTaskDao dao, final Long id, NetTask task) {
+        boolean result = SPHttpManager.getInstance().post(task.getPath(),
+                task.getParams());
+
+        if (result) {
+            dao.updateState(id, 2);
+        }
+    }
+
+    private void doUploadTask(final BackTaskDao dao, final Long id, NetTask task) {
+        HashMap<String, String> files = task.getFiles();
+        if (files != null) {
+            SPHttpManager.getInstance().upload(task.getPath(), task.getParams(),
+                    task.getFiles());
+        }
     }
 }

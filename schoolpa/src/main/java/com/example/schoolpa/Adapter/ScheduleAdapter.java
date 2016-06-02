@@ -1,14 +1,14 @@
-package com.example.schoolpa.Adapter;
+package com.example.schoolpa.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.schoolpa.Base.BaseViewHolder;
-import com.example.schoolpa.Base.DefaultAdapter;
-import com.example.schoolpa.Fragment.Data.ScheduleData;
-import com.example.schoolpa.Fragment.ScheduleFragment.OnListFragmentInteractionListener;
+import com.example.schoolpa.base.BaseViewHolder;
+import com.example.schoolpa.base.DefaultAdapter;
+import com.example.schoolpa.fragment.Data.ScheduleData;
+import com.example.schoolpa.fragment.ScheduleFragment.OnListFragmentInteractionListener;
 import com.example.schoolpa.R;
 
 import java.util.List;
@@ -51,8 +51,6 @@ public class ScheduleAdapter extends DefaultAdapter {
                 @Override
                 public void onClick(View v) {
                     if (null != mListener) {
-                        // Notify the active callbacks interface (the activity, if the
-                        // fragment is attached to one) that an item has been selected.
                         mListener.onListFragmentInteraction(commonViewHolder.mItem);
                     }
                 }

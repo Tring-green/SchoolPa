@@ -1,44 +1,32 @@
-package com.example.schoolpa.Activity;
+package com.example.schoolpa.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.example.schoolpa.Bean.Account;
-import com.example.schoolpa.Bean.Message;
+import com.example.schoolpa.domain.Account;
+import com.example.schoolpa.domain.Message;
 import com.example.schoolpa.ChatApplication;
-import com.example.schoolpa.Lib.Callback.SPChatCallBack;
-import com.example.schoolpa.Lib.Message.ChatMessage;
-import com.example.schoolpa.Lib.Message.TextBody;
-import com.example.schoolpa.Lib.SPChatManager;
+import com.example.schoolpa.lib.Message.ChatMessage;
+import com.example.schoolpa.lib.Message.TextBody;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Receiver.PushReceiver;
-import com.example.schoolpa.Utils.CommonUtil;
-import com.example.schoolpa.Utils.ToastUtils;
+import com.example.schoolpa.receiver.PushReceiver;
 import com.example.schoolpa.db.MessageDao;
-import com.example.schoolpa.db.SPDB;
 
 public class MessageActivity extends Activity implements View.OnClickListener, TextWatcher {
 
     private ListView listView;
-    private MessageAdapter adapter;
+    //private MessageAdapter adapter;
 
     private Button btnSend;
     private EditText etContent;
@@ -96,8 +84,8 @@ public class MessageActivity extends Activity implements View.OnClickListener, T
         etContent = (EditText) findViewById(R.id.message_et_content);
         btnSend.setEnabled(false);
 
-        adapter = new MessageAdapter(this, null);
-        listView.setAdapter(adapter);
+    /*    adapter = new MessageAdapter(this, null);
+        listView.setAdapter(adapter);*/
     }
 
     private void initEvent() {
@@ -117,7 +105,7 @@ public class MessageActivity extends Activity implements View.OnClickListener, T
 
         MessageDao dao = new MessageDao(this);
         final Cursor cursor = dao.queryMessage(account.getUserId(), messager);
-        adapter.changeCursor(cursor);
+        /*adapter.changeCursor(cursor);
         listView.post(new Runnable() {
             @SuppressLint("NewApi")
             @Override
@@ -128,7 +116,7 @@ public class MessageActivity extends Activity implements View.OnClickListener, T
                     listView.smoothScrollToPosition(cursor.getCount());
                 }
             }
-        });
+        });*/
     }
 
 
@@ -184,7 +172,7 @@ public class MessageActivity extends Activity implements View.OnClickListener, T
         message.setToken(account.getToken());
         message.setReceiver(messager);
         message.setBody(new TextBody(content));
-        SPChatManager.getInstance(this).sendMessage(message, new SPChatCallBack() {
+        /*SPChatManager.getInstance(this).sendMessage(message, new SPChatCallBack() {
 
             @Override
             public void onSuccess() {
@@ -211,10 +199,10 @@ public class MessageActivity extends Activity implements View.OnClickListener, T
                 // 更新ui
                 loadData();
             }
-        });
+        });*/
     }
 
-    private class MessageAdapter extends CursorAdapter {
+   /* private class MessageAdapter extends CursorAdapter {
 
         public MessageAdapter(Context context, Cursor c) {
             super(context, c, false);
@@ -285,5 +273,5 @@ public class MessageActivity extends Activity implements View.OnClickListener, T
             }
 
         }
-    }
+    }*/
 }

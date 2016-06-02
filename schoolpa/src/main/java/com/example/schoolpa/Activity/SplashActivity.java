@@ -1,4 +1,4 @@
-package com.example.schoolpa.Activity;
+package com.example.schoolpa.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,14 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 
-import com.example.schoolpa.Base.HttpClass;
-import com.example.schoolpa.Bean.WebBean;
+import com.example.schoolpa.base.HttpClass;
+import com.example.schoolpa.domain.WebBean;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Utils.HttpUtils;
-import com.example.schoolpa.Utils.LogUtils;
-import com.example.schoolpa.Utils.SharedPreferenceUtils;
-import com.example.schoolpa.Utils.StreamUtils;
-import com.example.schoolpa.Utils.ThreadUtils;
+import com.example.schoolpa.utils.HttpUtils;
+import com.example.schoolpa.utils.LogUtils;
+import com.example.schoolpa.utils.SharedPreferenceUtils;
+import com.example.schoolpa.utils.StreamUtils;
+import com.example.schoolpa.utils.ThreadUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

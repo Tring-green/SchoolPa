@@ -1,4 +1,4 @@
-package com.example.schoolpa.Fragment;
+package com.example.schoolpa.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,14 +17,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import com.example.schoolpa.Adapter.ElectricAdapter;
-import com.example.schoolpa.Adapter.ElectricDetailsAdapter;
-import com.example.schoolpa.Fragment.Data.ElectricData;
-import com.example.schoolpa.Fragment.Data.ElectricData.ElectricItem;
+import com.example.schoolpa.adapter.ElectricAdapter;
+import com.example.schoolpa.adapter.ElectricDetailsAdapter;
+import com.example.schoolpa.fragment.Data.ElectricData;
+import com.example.schoolpa.fragment.Data.ElectricData.ElectricItem;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Utils.HttpUtils;
-import com.example.schoolpa.Utils.TextUtils;
-import com.example.schoolpa.Utils.ToastUtils;
+import com.example.schoolpa.utils.HttpUtils;
+import com.example.schoolpa.utils.TextUtils;
+import com.example.schoolpa.utils.ToastUtils;
 
 
 /**

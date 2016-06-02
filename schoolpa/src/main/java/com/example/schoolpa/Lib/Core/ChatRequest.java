@@ -1,9 +1,9 @@
-package com.example.schoolpa.Lib.Core;
+package com.example.schoolpa.lib.Core;
 
 import android.util.Log;
 
-import com.example.schoolpa.Lib.Callback.SPChatCallBack;
-import com.example.schoolpa.Lib.Message.ChatMessage;
+import com.example.schoolpa.lib.Callback.SPChatCallBack;
+import com.example.schoolpa.lib.Message.ChatMessage;
 import com.google.gson.Gson;
 
 import java.util.HashMap;

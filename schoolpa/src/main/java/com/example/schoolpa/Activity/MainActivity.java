@@ -1,4 +1,4 @@
-package com.example.schoolpa.Activity;
+package com.example.schoolpa.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,17 +12,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.schoolpa.Adapter.SectionsPagerAdapter;
-import com.example.schoolpa.Fragment.Data.OfficialDocumentData;
-import com.example.schoolpa.Fragment.Data.ScheduleData;
-import com.example.schoolpa.Fragment.OfficialDocumentFragment;
-import com.example.schoolpa.Fragment.ScheduleFragment;
+import com.example.schoolpa.adapter.SectionsPagerAdapter;
+import com.example.schoolpa.fragment.Data.OfficialDocumentData;
+import com.example.schoolpa.fragment.Data.ScheduleData;
+import com.example.schoolpa.fragment.OfficialDocumentFragment;
+import com.example.schoolpa.fragment.ScheduleFragment;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Utils.SharedPreferenceUtils;
+import com.example.schoolpa.service.ChatCoreService;
+import com.example.schoolpa.utils.CommonUtil;
+import com.example.schoolpa.utils.SharedPreferenceUtils;
 
 /**
  *
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ScheduleFragment.OnListFragmentInteractionListener,
         OfficialDocumentFragment.OnListFragmentInteractionListener {
 
+    private static final String TAG = "MainActivity";
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private Toolbar toolbar;
 
@@ -41,11 +45,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "MainActivity start.");
         initData();
         initView();
     }
 
     private void initData() {
+        // 开启服务
+        if (!CommonUtil.isServiceRunning(this,
+                ChatCoreService.class)) {
+            this.startService(
+                    new Intent(this,
+                            ChatCoreService.class));
+            Log.d("MainActivity", "ChatCoreService start.");
+        }
 
     }
 

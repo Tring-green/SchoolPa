@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.schoolpa.Bean.BackTask;
+import com.example.schoolpa.domain.BackTask;
 
 
 public class BackTaskDao {

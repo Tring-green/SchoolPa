@@ -4,19 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.schoolpa.Activity.LoginActivity"
+    tools:context="com.example.schoolpa.activity.LoginActivity"
     >
 
-    <fragment
+    <FrameLayout
+        android:id="@+id/contanier_login"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.example.schoolpa.Fragment.LoginActivity.LoginFragment"
-        tools:layout="@layout/fragment_login"
-        />
+        android:layout_height="match_parent" >
+    </FrameLayout>
 
 </FrameLayout>

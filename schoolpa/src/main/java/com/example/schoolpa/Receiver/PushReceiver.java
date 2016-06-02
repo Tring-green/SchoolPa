@@ -1,4 +1,4 @@
-package com.example.schoolpa.Receiver;
+package com.example.schoolpa.receiver;
 
 import android.content.BroadcastReceiver;
 

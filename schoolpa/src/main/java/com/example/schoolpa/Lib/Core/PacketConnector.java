@@ -1,4 +1,4 @@
-package com.example.schoolpa.Lib.Core;
+package com.example.schoolpa.lib.Core;
 
 import android.util.Log;
 

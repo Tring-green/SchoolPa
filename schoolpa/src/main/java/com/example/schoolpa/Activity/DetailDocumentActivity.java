@@ -1,4 +1,4 @@
-package com.example.schoolpa.Activity;
+package com.example.schoolpa.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +8,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
-import com.example.schoolpa.Bean.WebBean;
+import com.example.schoolpa.domain.WebBean;
 import com.example.schoolpa.R;
-import com.example.schoolpa.Utils.HttpUtils;
+import com.example.schoolpa.utils.HttpUtils;
 
 import java.util.List;
 

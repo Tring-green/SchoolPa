@@ -1,4 +1,4 @@
-package com.example.schoolpa.Fragment.Data;
+package com.example.schoolpa.fragment.Data;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.schoolpa.Base;
+package com.example.schoolpa.base;
 
 import java.io.IOException;
 import java.io.PrintWriter;

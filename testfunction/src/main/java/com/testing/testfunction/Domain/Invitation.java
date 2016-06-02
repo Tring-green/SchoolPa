@@ -4,7 +4,7 @@ public class Invitation {
 
 	private long id;
 	private String owner;
-	private String account;
+	private String userId;
 	private String name;
 	private String icon;
 	private String content;
@@ -18,12 +18,12 @@ public class Invitation {
 		this.owner = owner;
 	}
 
-	public String getAccount() {
-		return account;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {
@@ -68,8 +68,8 @@ public class Invitation {
 
 	@Override
 	public String toString() {
-		return "Invitation [id=" + id + ", owner=" + owner + ", account="
-				+ account + ", name=" + name + ", icon=" + icon + ", content="
+		return "Invitation [id=" + id + ", owner=" + owner + ", userId="
+				+ userId + ", name=" + name + ", icon=" + icon + ", content="
 				+ content + ", agree=" + agree + "]";
 	}
 

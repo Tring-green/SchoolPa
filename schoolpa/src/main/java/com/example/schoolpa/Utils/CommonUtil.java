@@ -1,4 +1,4 @@
-package com.example.schoolpa.Utils;
+package com.example.schoolpa.utils;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -6,6 +6,8 @@ import android.app.Service;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import net.sourceforge.pinyin4j.PinyinHelper;
 
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -108,4 +110,26 @@ public class CommonUtil {
 		}
 		return hexValue.toString();
 	}
+
+	public static String getFirstAlpha(String inputString) {
+		// String pinYin = getPinYin(inputString);
+		// if (pinYin != null && pinYin.length() > 0) {
+		// return pinYin.substring(0, 1).toUpperCase();
+		// }
+
+		if (inputString != null) {
+
+			String[] array = PinyinHelper.toHanyuPinyinStringArray(inputString
+					.charAt(0));
+
+			if (array == null) {
+				return inputString.substring(0, 1).toUpperCase();
+			} else {
+				return array[0].toUpperCase();
+			}
+		}
+
+		return "";
+	}
+
 }

@@ -7,7 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.example.schoolpa.Bean.Account;
+import com.example.schoolpa.domain.Account;
+import com.example.schoolpa.lib.Callback.SPChat;
 import com.example.schoolpa.db.AccountDao;
 
 import java.util.LinkedList;
@@ -26,6 +27,7 @@ public class ChatApplication extends Application {
         super.onCreate();
         sApplication = this;
         Log.d("ChatApplication", "init");
+        SPChat.getInstance().init(this);
     }
 
     public void addActivity(Activity activity) {

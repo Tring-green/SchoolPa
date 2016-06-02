@@ -30,10 +30,13 @@
         </receiver>
 
         <service android:name=".Service.BackgroundService" />
-
         <service android:name=".Service.CoreService" />
 
-
+        <receiver
+            android:name=".Receiver.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="true"
+            ></receiver>
     </application>
 
 </manifest>

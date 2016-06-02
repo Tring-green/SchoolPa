@@ -1,4 +1,4 @@
-package com.example.schoolpa.Adapter;
+package com.example.schoolpa.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.schoolpa.Fragment.Data.ElectricData.ElectricItem;
-import com.example.schoolpa.Fragment.ElectricFragment.OnListFragmentInteractionListener;
+import com.example.schoolpa.fragment.Data.ElectricData.ElectricItem;
+import com.example.schoolpa.fragment.ElectricFragment.OnListFragmentInteractionListener;
 import com.example.schoolpa.R;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.schoolpa.View;
+package com.example.schoolpa.view;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;

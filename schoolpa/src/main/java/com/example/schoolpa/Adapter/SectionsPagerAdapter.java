@@ -1,11 +1,11 @@
-package com.example.schoolpa.Adapter;
+package com.example.schoolpa.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.schoolpa.Fragment.HomeFragment;
-import com.example.schoolpa.Fragment.ScheduleFragment;
+import com.example.schoolpa.fragment.HomeFragment;
+import com.example.schoolpa.fragment.ScheduleFragment;
 
 /**
  * 标签适配器

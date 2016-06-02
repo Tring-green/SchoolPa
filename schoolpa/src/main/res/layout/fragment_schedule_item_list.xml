@@ -17,7 +17,7 @@
 
         android:visibility="invisible"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.example.schoolpa.Fragment.ScheduleFragment"
+        tools:context="com.example.schoolpa.fragment.ScheduleFragment"
         tools:listitem="@layout/fragment_schedule_item_common"
         />
 

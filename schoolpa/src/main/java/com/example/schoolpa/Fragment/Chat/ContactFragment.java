@@ -1,4 +1,4 @@
-package com.example.schoolpa.Fragment.Chat;
+package com.example.schoolpa.fragment.Chat;
 
 
 import android.os.Bundle;
